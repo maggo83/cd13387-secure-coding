@@ -6,8 +6,7 @@
 #define MAX_LINE_LENGTH 100
 #define MAX_USERNAME_LENGTH 50
 #define MAX_PASSWORD_LENGTH 50
-#define MAX_HASH_LENGTH 65
-#define SALT_LENGTH 2
+
 
 #define COUNTER "0"
 #define FILE_INPUT "users.txt"
