@@ -4,9 +4,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define SALT_LENGTH 2
-#define MAX_HASH_LENGTH 65
-
 // Function to convert bytes to a hexadecimal string
 void bytes_to_hex(const unsigned char* bytes, size_t len, char* hex_str) {
     for (size_t i = 0; i < len; i++) {

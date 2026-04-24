@@ -17,6 +17,7 @@ COPY generate_hashed_users.c /app/
 
 # Compile the C program
 RUN gcc /app/login.c -o /app/login -lssl -lcrypto
+RUN gcc /app/generate_hashed_users.c -o /app/generate_hashed_users -lssl -lcrypto
 
 # Make start.sh executable
 RUN chmod +x /app/start.sh

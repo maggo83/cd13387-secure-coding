@@ -13,7 +13,7 @@
 #define PORT 8443
 #define SERVER_IP "server"  // Use "server" for Docker or "127.0.0.1" for local testing
 #define BUFFER_SIZE 4096
-#define OUTPUT_FILE "received_update.bin"
+#define OUTPUT_FILE "received_package.zip"
 
 void initialize_openssl() {
     SSL_load_error_strings();
@@ -35,13 +35,13 @@ SSL_CTX *create_context() {
 }
 
 void configure_context(SSL_CTX *ctx) {
-    if (SSL_CTX_use_certificate_file(ctx, <replace with client certificate>, SSL_FILETYPE_PEM) <= 0 ||
-        SSL_CTX_use_PrivateKey_file(ctx, <replace with client key>, SSL_FILETYPE_PEM) <= 0) {
+    if (SSL_CTX_use_certificate_file(ctx, "client.crt", SSL_FILETYPE_PEM) <= 0 ||
+        SSL_CTX_use_PrivateKey_file(ctx, "client.key", SSL_FILETYPE_PEM) <= 0) {
         ERR_print_errors_fp(stderr);
         exit(EXIT_FAILURE);
     }
 
-    SSL_CTX_load_verify_locations(ctx, <replace with rootCA certificate>, NULL);
+    SSL_CTX_load_verify_locations(ctx, "rootCA.crt", NULL);
     SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER, NULL);
 }
 

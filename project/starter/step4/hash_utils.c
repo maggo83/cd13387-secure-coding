@@ -3,9 +3,7 @@
 #include <openssl/sha.h>
 #include <stdlib.h>
 #include <time.h>
-
-#define SALT_LENGTH 2
-#define MAX_PASSWORD_LENGTH 50
+#include "hash_utils.h"
 
 // Function to convert bytes to a hexadecimal string
 void bytes_to_hex(const unsigned char* bytes, size_t len, char* hex_str) {
@@ -18,11 +16,12 @@ void bytes_to_hex(const unsigned char* bytes, size_t len, char* hex_str) {
 // Function to hash password with SHA-256
 void hash_password(const char* password, const unsigned char* salt, char* hashed_password) {
     unsigned char hash[SHA256_DIGEST_LENGTH];
-    char salted_password[SALT_LENGTH];
+    char salted_password[MAX_HASH_LENGTH + SALT_LENGTH];
 
     // Prepend the salt to the password
     memcpy(salted_password, salt, SALT_LENGTH);
-    strcpy(salted_password + SALT_LENGTH, password);
+    strncpy(salted_password + SALT_LENGTH, password, sizeof(salted_password) - SALT_LENGTH - 1);
+    salted_password[sizeof(salted_password) - 1] = '\0';
 
     // Hash the salted password
     SHA256((unsigned char*)salted_password, strlen(salted_password), hash);
